@@ -34,6 +34,7 @@ window.onload = function () {
 
 function update () {
     requestAnimationFrame(update);
+    context.clearRect(0, 0, board.width, board.height);
 
     //player
     context.fillStyle = "greenyellow";
@@ -45,7 +46,7 @@ function movePlayer(e) {
     if (e.code == "ArrowLeft") {
         player.x -= player.velocityX;} 
 
-        
+
     else if (e.code == "ArrowRight") {
         player.x += playerVelocityX}
     
