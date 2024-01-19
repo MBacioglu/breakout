@@ -8,12 +8,14 @@ let context;
 // player 
 let playerHeight = 10;
 let playerWidth = 80;
+let playerVelocityX = 10;
 
 let player = {
     x : boardWidth/2 - playerWidth/2,
     y : boardHeight - playerHeight - 5,
     width : playerWidth,
     height : playerHeight,
+    velocityX : playerVelocityX
 }
 
 window.onload = function () {
@@ -22,8 +24,31 @@ window.onload = function () {
     board.width = boardWidth;
     context = board.getContext("2d"); // dit is om de board te tekenen
 
-    // dit is player
+    // dit is om de player te tekenen
+    context.fillStyle = "greenyellow";
+    context.fillRect(player.x, player.y, player.width, player.height);
+
+    requestAnimationFrame(update);
+    document.addEventListener("keydown", movePlayer);
+}
+
+function update () {
+    requestAnimationFrame(update);
+
+    //player
     context.fillStyle = "greenyellow";
     context.fillRect(player.x, player.y, player.width, player.height);
 }
+
+function movePlayer(e) {
+
+    if (e.code == "ArrowLeft") {
+        player.x -= player.velocityX;} 
+
+        
+    else if (e.code == "ArrowRight") {
+        player.x += playerVelocityX}
+    
+}
+
 
