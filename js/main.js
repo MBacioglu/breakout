@@ -56,7 +56,15 @@ function update () {
         ball.velocityX *= -1;
     }
     else if (ball.y + ball.height >= boardHeight) {
-        // als ball onder zijde aanraakt // game over
+        // als ball onder zijde aanraakt 
+        // game over
+    }
+    //stuiter de bal van de spelerspeddel
+    if (topCollision(ball, player) || bottomCollision(ball, player)) {
+        ball.velocityY *= -1;   // draai de y-richting omhoog of omlaag
+    }
+    else if (leftCollision(ball, player) || rightCollision(ball, player)) {
+        ball.velocityX *= -1;   // draai de x-richting naar links of rechts
     }
     
 
