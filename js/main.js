@@ -18,6 +18,19 @@ let player = {
     velocityX : playerVelocityX
 }
 
+//blocks
+let blockArray = [];
+let blockWidth = 50;
+let blockHeight = 10;
+let blockColumns = 8; 
+let blockRows = 3; //voegt meer toe wanneer je vooruitgang boekt in het spel/volgende level
+let blockMaxRows = 10; //limiteerd hoeveel rijen
+let blockCount = 0;
+
+//startblokhoeken linksboven
+let blockX = 15;
+let blockY = 45;
+
 window.onload = function () {
     board = document.getElementById("board");
     board.height = boardHeight;
@@ -30,6 +43,9 @@ window.onload = function () {
 
     requestAnimationFrame(update);
     document.addEventListener("keydown", movePlayer);
+
+    //creeerd blokken
+    createBlocks();
 }
 
 function update () {
@@ -65,6 +81,27 @@ function update () {
     }
     else if (leftCollision(ball, player) || rightCollision(ball, player)) {
         ball.velocityX *= -1;   // draai de x-richting naar links of rechts
+    }
+
+    //blocks
+    context.fillStyle = "red";
+    for (let i = 0; i < blockArray.length; i++) {
+        let block = blockArray[i];
+        if (!block.break) {
+            if (topCollision(ball, block) || bottomCollision(ball, block)) {
+                block.break = true;     // block is kapot
+                ball.velocityY *= -1;   // draai de y-richting omhoog of omlaag
+                score += 100;
+                blockCount -= 1;
+            }
+            else if (leftCollision(ball, block) || rightCollision(ball, block)) {
+                block.break = true;     // block is kapot
+                ball.velocityX *= -1;   // draai de x-richting naar links of rechts
+                score += 100;
+                blockCount -= 1;
+            }
+            context.fillRect(block.x, block.y, block.width, block.height);
+        }
     }
     
 
@@ -128,3 +165,19 @@ function rightCollision(ball, block) { //a is rechts van b (ball is rechts van b
     return detectCollision(ball, block) && (block.x + block.width) >= ball.x;
 }
 
+function createBlocks() {
+    blockArray = []; //wis blockArray
+    for (let c = 0; c < blockColumns; c++) {
+        for (let r = 0; r < blockRows; r++) {
+            let block = {
+                x : blockX + c*blockWidth + c*10, //c*10 kolommen met een tussenruimte van 10 pixels
+                y : blockY + r*blockHeight + r*10, //r*10 rijen met een afstand van 10 pixels uit elkaar
+                width : blockWidth,
+                height : blockHeight,
+                break : false
+            }
+            blockArray.push(block);
+        }
+    }
+    blockCount = blockArray.length;
+}
