@@ -31,6 +31,10 @@ let blockCount = 0;
 let blockX = 15;
 let blockY = 45;
 
+//score
+let score = 0;
+let gameOver = false;
+
 window.onload = function () {
     board = document.getElementById("board");
     board.height = boardHeight;
@@ -50,6 +54,9 @@ window.onload = function () {
 
 function update () {
     requestAnimationFrame(update);
+    if (gameOver) {
+        return;
+    }
     context.clearRect(0, 0, board.width, board.height);
 
     //player
@@ -74,6 +81,10 @@ function update () {
     else if (ball.y + ball.height >= boardHeight) {
         // als ball onder zijde aanraakt 
         // game over
+            // als de ball de onderkant van het spel raakt
+            context.font = "20px sans-serif";
+            context.fillText("Game Over : Press 'Space' to Restart", 80, 400);
+            gameOver = true;
     }
     //stuiter de bal van de spelerspeddel
     if (topCollision(ball, player) || bottomCollision(ball, player)) {
@@ -103,6 +114,9 @@ function update () {
             context.fillRect(block.x, block.y, block.width, block.height);
         }
     }
+      //score
+      context.font = "20px sans-serif";
+      context.fillText(score, 10, 25);
     
 
 }
