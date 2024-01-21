@@ -128,6 +128,14 @@ function outOfBounds(xPosition) {
 
 function movePlayer(e) {
 
+    if (gameOver) {
+        if (e.code == "Space") {
+            resetGame();
+            console.log("RESET");
+        }
+        return;
+    }
+
     if (e.code == "ArrowLeft") {
         //player.x -= player.velocityX;} 
         let nextPlayerX = player.x - player.velocityX;
@@ -194,4 +202,27 @@ function createBlocks() {
         }
     }
     blockCount = blockArray.length;
+}
+
+function resetGame() {
+    gameOver = false;
+    player = {
+        x : boardWidth/2 - playerWidth/2,
+        y : boardHeight - playerHeight - 5,
+        width: playerWidth,
+        height: playerHeight,
+        velocityX : playerVelocityX
+    }
+    ball = {
+        x : boardWidth/2,
+        y : boardHeight/2,
+        width: ballWidth,
+        height: ballHeight,
+        velocityX : ballVelocityX,
+        velocityY : ballVelocityY
+    }
+    blockArray = [];
+    blockRows = 3;
+    score = 0;
+    createBlocks();
 }
