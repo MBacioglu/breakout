@@ -39,6 +39,15 @@ function update () {
     //player
     context.fillStyle = "greenyellow";
     context.fillRect(player.x, player.y, player.width, player.height);
+
+    //ball
+    context.fillStyle = "white";
+    ball.x += ball.velocityX;
+    ball.y += ball.velocityY;
+    context.fillRect(ball.x, ball.y, ball.height, ball.width);
+
+    
+
 }
 
 function outOfBounds(xPosition) {
@@ -65,6 +74,19 @@ function movePlayer(e) {
   }
 }
     
+// ball
+let ballHeight = 10;
+let ballWidth = 10;
+let ballVelocityX = 3;
+let ballVelocityY = 2;
 
+let ball ={
+    x : boardHeight/2,
+    y : boardWidth/2,
+    height : ballHeight,
+    width : ballWidth,
+    velocityX : ballVelocityX,
+    velocityY : ballVelocityY,
+}
 
 
