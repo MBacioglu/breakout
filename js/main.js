@@ -117,6 +117,13 @@ function update () {
       //score
       context.font = "20px sans-serif";
       context.fillText(score, 10, 25);
+
+     //volgende level
+     if (blockCount == 0) {
+        score += 100*blockRows*blockColumns; //bonus punten
+        blockRows = Math.min(blockRows + 1, blockMaxRows);
+        createBlocks();
+    }
     
 
 }
@@ -219,7 +226,7 @@ function resetGame() {
         width: ballWidth,
         height: ballHeight,
         velocityX : ballVelocityX,
-        velocityY : ballVelocityY
+        velocityY : ballVelocityY,
     }
     blockArray = [];
     blockRows = 3;
