@@ -46,6 +46,18 @@ function update () {
     ball.y += ball.velocityY;
     context.fillRect(ball.x, ball.y, ball.height, ball.width);
 
+    // ball laten kaatsen
+    if (ball.y <= 0) {
+        // als ball boven zijde aanraakt
+        ball.velocityY *= -1;
+    }
+    else if (ball.x <= 0 || (ball.x + ball.width) >= boardWidth) {
+        // als ball de rechter of linker zijde aanraakt
+        ball.velocityX *= -1;
+    }
+    else if (ball.y + ball.height >= boardHeight) {
+        // als ball onder zijde aanraakt // game over
+    }
     
 
 }
