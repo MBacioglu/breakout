@@ -101,4 +101,22 @@ let ball ={
     velocityY : ballVelocityY,
 }
 
+function detectCollision(a, b) {
+    return a.x < b.x + b.width &&   //a's linker boven hoek bereikt de rechterbovenhoek van b niet
+           a.x + a.width > b.x &&   //a's rechter boven hoek passeert de linkerbovenhoek van b
+           a.y < b.y + b.height &&  //a's linker boven hoek bereikt de linkerbenedenhoek van b niet
+           a.y + a.height > b.y;    //a's linker onder hoek passeert de linkerbovenhoek van b
+}
+function topCollision(ball, block) { //a is boven b (ball is boven block)
+    return detectCollision(ball, block) && (ball.y + ball.height) >= block.y;
+}
+function bottomCollision(ball, block) { //a is boven b (ball is onder block)
+    return detectCollision(ball, block) && (block.y + block.height) >= ball.y;
+}
+function leftCollision(ball, block) { //a is links van b (ball is links van block)
+    return detectCollision(ball, block) && (ball.x + ball.width) >= block.x;
+}
+function rightCollision(ball, block) { //a is rechts van b (ball is rechts van block)
+    return detectCollision(ball, block) && (block.x + block.width) >= ball.x;
+}
 
